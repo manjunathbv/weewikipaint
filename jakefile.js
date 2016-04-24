@@ -11,11 +11,7 @@ task("lint",[],function(){
   var files = new jake.FileList();
   files.include("**/*.js");
   files.exclude("node_modules");
-  files.exclude("build");
-
-  var options = {
-    node: true
-  };
+  //files.exclude("build");
 
   var globals ={
     describe: false,
@@ -24,5 +20,27 @@ task("lint",[],function(){
     afterEach: false
   };
 
-  lint.validateFileList(files.toArray(), options, globals);
+  lint.validateFileList(files.toArray(), nodeLintOptions(), globals);
 });
+
+function nodeLintOptions() {
+  var options = {
+    bitwise: true,
+		curly: false,
+		eqeqeq: true,
+		forin: true,
+		immed: true,
+		latedef: false,
+		newcap: true,
+		noarg: true,
+		noempty: true,
+		nonew: true,
+		regexp: true,
+		undef: true,
+		strict: true,
+		globalstrict: true,     // "global" stricts are okay when using CommonJS modules
+		trailing: true,
+    node: true
+  };
+  return options;
+}
