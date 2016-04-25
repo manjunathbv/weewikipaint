@@ -20,7 +20,8 @@ task("lint",[],function(){
     afterEach: false
   };
 
-  lint.validateFileList(files.toArray(), nodeLintOptions(), globals);
+  var pass = lint.validateFileList(files.toArray(), nodeLintOptions(), globals);// || fail("Lint failed");
+  if (!pass) fail("Lint failed");
 });
 
 function nodeLintOptions() {
