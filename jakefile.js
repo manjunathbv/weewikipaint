@@ -11,7 +11,7 @@ task("lint",[],function(){
   var files = new jake.FileList();
   files.include("**/*.js");
   files.exclude("node_modules");
-  //files.exclude("build");
+  files.exclude("build");
 
   var globals ={
     describe: false,
@@ -27,7 +27,23 @@ task("lint",[],function(){
 desc("Test everthing");
 task("test", [], function(){
   var reporter = require("nodeunit").reporters["default"];
-  reporter.run(['./src/server/_server_test.js']);
+  reporter.run(['./src/server/_server_test.js'],null, function(failures){
+    if (failures) fail("Tests failed");
+    complete();
+  });
+}, {async: true});
+
+desc("Integrate");
+task("integrate", ["default"], function(){
+  console.log("1. Make sure 'git status' is clean.");
+  console.log("2. Build on the integration box.");
+  console.log("   a. Walk over to integration box");
+  console.log("   b. 'git pull'");
+  console.log("   c. 'jake'");
+  console.log("   d. If jake fails, stop! Try again after fixing the issue.");
+  console.log("3. 'git checkout integration'");
+  console.log("4. 'git merge master --no-ff --log'");
+  console.log("5. 'git checkout master'");
 });
 
 function nodeLintOptions() {
