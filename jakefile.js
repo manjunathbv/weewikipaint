@@ -26,7 +26,8 @@ task("lint",[],function(){
 
 desc("Test everthing");
 task("test", [], function(){
-  console.log("test goes here.");  
+  var reporter = require("nodeunit").reporters["default"];
+  reporter.run(['test']);
 });
 
 function nodeLintOptions() {
