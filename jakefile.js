@@ -2,7 +2,7 @@
 
 "use strict";
 
-task("default",["lint"]);
+task("default",["lint", "test"]);
 
 desc("Lint everthing");
 task("lint",[],function(){
@@ -22,6 +22,11 @@ task("lint",[],function(){
 
   var pass = lint.validateFileList(files.toArray(), nodeLintOptions(), globals);// || fail("Lint failed");
   if (!pass) fail("Lint failed");
+});
+
+desc("Test everthing");
+task("test", [], function(){
+  console.log("test goes here.");  
 });
 
 function nodeLintOptions() {
